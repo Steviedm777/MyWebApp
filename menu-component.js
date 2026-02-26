@@ -6,7 +6,13 @@ class MenuComponent extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    this.setupEventListeners();
+    // Wait for slotted content to be ready before setting up listeners
+    const slot = this.shadowRoot.querySelector('slot');
+    if (slot) {
+      slot.addEventListener('slotchange', () => {
+        this.setupEventListeners();
+      }, { once: true });
+    }
   }
 
   render() {
@@ -213,9 +219,16 @@ class MenuComponent extends HTMLElement {
         navLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
 
-        // Dispatch custom event for navigation
+        // Get the page ID from the link
         const pageId = link.getAttribute('href').substring(1);
+
+        // Dispatch custom event for navigation
         this.dispatchEvent(new CustomEvent('navigate', { detail: { pageId } }));
+
+        // Also call showPage directly to ensure navigation happens
+        if (typeof window.showPage === 'function') {
+          window.showPage(pageId);
+        }
 
         // Close sidebar on mobile
         if (window.innerWidth <= 768) {
