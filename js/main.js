@@ -16,31 +16,3 @@ if (menuComponent) {
     window.showPage(pageId);
   });
 }
-
-// Original greeting click functionality
-document.getElementById('greeting').addEventListener('click', function () {
-  this.textContent = this.textContent === 'Hello, World!'
-    ? 'Hello again!'
-    : 'Hello, World!';
-});
-
-// Counter functionality
-let counter = 0;
-
-const addBtn = document.getElementById('addBtn');
-const subtractBtn = document.getElementById('subtractBtn');
-const counterValue = document.getElementById('counterValue');
-
-function updateCounterDisplay() {
-  counterValue.textContent = counter;
-}
-
-addBtn.addEventListener('click', function () {
-  counter++;
-  updateCounterDisplay();
-});
-
-subtractBtn.addEventListener('click', function () {
-  counter--;
-  updateCounterDisplay();
-});
