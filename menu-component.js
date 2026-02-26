@@ -75,11 +75,12 @@ class MenuComponent extends HTMLElement {
           transition: left 0.3s ease;
           z-index: 1000;
           overflow-y: auto;
-          box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+          box-shadow: none;
         }
 
         .sidebar.active {
           left: 0;
+          box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar-header {
@@ -111,7 +112,7 @@ class MenuComponent extends HTMLElement {
           flex-direction: column;
         }
 
-        .nav-link {
+        ::slotted(a) {
           display: block;
           padding: 12px 0;
           color: var(--sidebar-text);
@@ -123,8 +124,8 @@ class MenuComponent extends HTMLElement {
           cursor: pointer;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
+        ::slotted(a:hover),
+        ::slotted(a.active) {
           border-left-color: var(--sidebar-accent);
           color: var(--sidebar-accent);
           padding-left: 20px;
