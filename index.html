@@ -4,38 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello World</title>
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f0f0f0;
-      font-family: sans-serif;
-    }
-
-    h1 {
-      font-size: 3rem;
-      color: #333;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    h1:hover {
-      color: #007bff;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1 id="greeting">Hello, World!</h1>
 
-  <script>
-    document.getElementById('greeting').addEventListener('click', function () {
-      this.textContent = this.textContent === 'Hello, World!'
-        ? 'Hello again!'
-        : 'Hello, World!';
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
