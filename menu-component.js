@@ -17,10 +17,12 @@ class MenuComponent extends HTMLElement {
           --sidebar-text: #ecf0f1;
           --sidebar-accent: #3498db;
           --sidebar-border: #34495e;
+          display: block;
+          position: relative;
         }
 
         .menu-toggle {
-          position: absolute;
+          position: fixed;
           top: 20px;
           left: 20px;
           background: var(--sidebar-bg);
@@ -65,21 +67,22 @@ class MenuComponent extends HTMLElement {
 
         .sidebar {
           position: fixed;
-          left: -280px;
+          left: 0;
           top: 0;
           width: 280px;
           height: 100vh;
           background: var(--sidebar-bg);
           color: var(--sidebar-text);
           padding: 20px;
-          transition: left 0.3s ease;
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
           z-index: 1000;
           overflow-y: auto;
           box-shadow: none;
         }
 
         .sidebar.active {
-          left: 0;
+          transform: translateX(0);
           box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
