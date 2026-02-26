@@ -6,6 +6,8 @@
   <title>Hello World</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/components/menu-component.js"></script>
+  <script src="js/components/home-component.js"></script>
+  <script src="js/components/counter-component.js"></script>
 </head>
 <body>
   <menu-component>
@@ -17,20 +19,8 @@
   </menu-component>
 
   <div class="main-content">
-    <div id="home" class="page active">
-      <h1 id="greeting">Hello, World!</h1>
-    </div>
-
-    <div id="counter" class="page">
-      <h1>Counter</h1>
-      <div class="counter-display">
-        <span id="counterValue">0</span>
-      </div>
-      <div class="counter-buttons">
-        <button id="subtractBtn" class="btn btn-subtract">Subtract</button>
-        <button id="addBtn" class="btn btn-add">Add</button>
-      </div>
-    </div>
+    <home-component id="home" class="page active"></home-component>
+    <counter-component id="counter" class="page"></counter-component>
   </div>
 
   <script src="js/main.js"></script>
