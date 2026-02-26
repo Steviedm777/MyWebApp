@@ -1,55 +1,8 @@
-// Menu toggle functionality
-const menuToggle = document.getElementById('menuToggle');
-const sidebar = document.getElementById('sidebar');
-const closeBtn = document.getElementById('closeBtn');
-const navLinks = document.querySelectorAll('.nav-link');
-
-// Create overlay element
-const overlay = document.createElement('div');
-overlay.className = 'sidebar-overlay';
-document.body.appendChild(overlay);
-
-// Toggle menu
-menuToggle.addEventListener('click', function () {
-  sidebar.classList.toggle('active');
-  menuToggle.classList.toggle('active');
-  overlay.classList.toggle('active');
-});
-
-// Close menu with close button
-closeBtn.addEventListener('click', function () {
-  sidebar.classList.remove('active');
-  menuToggle.classList.remove('active');
-  overlay.classList.remove('active');
-});
-
-// Close menu when clicking on overlay
-overlay.addEventListener('click', function () {
-  sidebar.classList.remove('active');
-  menuToggle.classList.remove('active');
-  overlay.classList.remove('active');
-});
-
-// Close menu and update active link when clicking on a nav link
-navLinks.forEach(link => {
-  link.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Update active link
-    navLinks.forEach(l => l.classList.remove('active'));
-    this.classList.add('active');
-
-    // Get the page to navigate to
-    const pageId = this.getAttribute('href').substring(1); // Remove '#'
-    showPage(pageId);
-
-    // Close sidebar on mobile
-    if (window.innerWidth <= 768) {
-      sidebar.classList.remove('active');
-      menuToggle.classList.remove('active');
-      overlay.classList.remove('active');
-    }
-  });
+// Listen for navigation events from menu component
+const menuComponent = document.querySelector('menu-component');
+menuComponent.addEventListener('navigate', function (e) {
+  const pageId = e.detail.pageId;
+  showPage(pageId);
 });
 
 // Original greeting click functionality
