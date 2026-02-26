@@ -39,15 +39,16 @@ navLinks.forEach(link => {
     navLinks.forEach(l => l.classList.remove('active'));
     this.classList.add('active');
 
+    // Get the page to navigate to
+    const pageId = this.getAttribute('href').substring(1); // Remove '#'
+    showPage(pageId);
+
     // Close sidebar on mobile
     if (window.innerWidth <= 768) {
       sidebar.classList.remove('active');
       menuToggle.classList.remove('active');
       overlay.classList.remove('active');
     }
-
-    // Navigate to the href (in a real app, you'd use routing)
-    console.log('Navigating to:', this.getAttribute('href'));
   });
 });
 
@@ -56,4 +57,35 @@ document.getElementById('greeting').addEventListener('click', function () {
   this.textContent = this.textContent === 'Hello, World!'
     ? 'Hello again!'
     : 'Hello, World!';
+});
+
+// Page navigation function
+function showPage(pageId) {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => page.classList.remove('active'));
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add('active');
+  }
+}
+
+// Counter functionality
+let counter = 0;
+
+const addBtn = document.getElementById('addBtn');
+const subtractBtn = document.getElementById('subtractBtn');
+const counterValue = document.getElementById('counterValue');
+
+function updateCounterDisplay() {
+  counterValue.textContent = counter;
+}
+
+addBtn.addEventListener('click', function () {
+  counter++;
+  updateCounterDisplay();
+});
+
+subtractBtn.addEventListener('click', function () {
+  counter--;
+  updateCounterDisplay();
 });

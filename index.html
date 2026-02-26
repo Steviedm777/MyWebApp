@@ -14,6 +14,7 @@
     </div>
     <nav class="sidebar-nav">
       <a href="#home" class="nav-link active">Home</a>
+      <a href="#counter" class="nav-link">Counter</a>
       <a href="#about" class="nav-link">About</a>
       <a href="#services" class="nav-link">Services</a>
       <a href="#contact" class="nav-link">Contact</a>
@@ -26,7 +27,21 @@
       <span></span>
       <span></span>
     </button>
-    <h1 id="greeting">Hello, World!</h1>
+
+    <div id="home" class="page active">
+      <h1 id="greeting">Hello, World!</h1>
+    </div>
+
+    <div id="counter" class="page">
+      <h1>Counter</h1>
+      <div class="counter-display">
+        <span id="counterValue">0</span>
+      </div>
+      <div class="counter-buttons">
+        <button id="subtractBtn" class="btn btn-subtract">Subtract</button>
+        <button id="addBtn" class="btn btn-add">Add</button>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
