@@ -19,10 +19,10 @@ class MenuComponent extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
-          --sidebar-bg: #ff69b4;
+          --sidebar-bg: #2c3e50;
           --sidebar-text: #ecf0f1;
           --sidebar-accent: #3498db;
-          --sidebar-border: #e75480;
+          --sidebar-border: #34495e;
           display: block;
           position: relative;
         }
