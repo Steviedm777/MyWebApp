@@ -14,19 +14,22 @@
   <script src="js/components/menu-component.js"></script>
   <script src="js/components/home-component.js"></script>
   <script src="js/components/counter-component.js"></script>
+  <script src="js/components/about-component.js"></script>
+  <script src="js/components/contact-component.js"></script>
 </head>
 <body>
   <menu-component>
     <a href="#home" class="nav-link active">Home</a>
     <a href="#counter" class="nav-link">Counter</a>
     <a href="#about" class="nav-link">About</a>
-    <a href="#services" class="nav-link">Services</a>
     <a href="#contact" class="nav-link">Contact</a>
   </menu-component>
 
   <div class="main-content">
     <home-component id="home" class="page active"></home-component>
     <counter-component id="counter" class="page"></counter-component>
+    <about-component id="about" class="page"></about-component>
+    <contact-component id="contact" class="page"></contact-component>
   </div>
 
   <script src="js/main.js"></script>
