@@ -132,7 +132,11 @@ class TitleBarComponent extends HTMLElement {
     button.addEventListener('click', () => {
       const menuComponent = document.querySelector('menu-component');
       if (menuComponent) {
+        console.log('Found menu-component, calling toggleSidebar');
         menuComponent.toggleSidebar();
+        console.log('toggleSidebar called');
+      } else {
+        console.log('ERROR: menu-component not found!');
       }
     });
 
