@@ -27,9 +27,27 @@ if (titleBar && menuComponent) {
 }
 
 // DEBUG: Monitor button clicks and menu state
+let navClickCount = 0;
+let navigateEventCount = 0;
 if (menuComponent && titleBar) {
   const debugDiv = document.getElementById('debug-info');
   if (debugDiv) {
+    // Monitor nav link clicks in light DOM
+    const navLinks = menuComponent.querySelectorAll('a');
+    console.log('Found nav links:', navLinks.length);
+    navLinks.forEach((link, idx) => {
+      link.addEventListener('click', (e) => {
+        navClickCount++;
+        console.log(`Nav link ${idx} clicked:`, link.getAttribute('href'));
+      });
+    });
+
+    // Monitor navigate events
+    menuComponent.addEventListener('navigate', (e) => {
+      navigateEventCount++;
+      console.log('Navigate event fired:', e.detail);
+    });
+
     setInterval(() => {
       const shadowRoot = menuComponent.shadowRoot;
       if (shadowRoot) {
@@ -42,7 +60,13 @@ if (menuComponent && titleBar) {
         const btn = titleShadow?.querySelector('.hamburger-btn');
         const btnActive = btn?.classList.contains('active') ?? false;
 
-        debugDiv.textContent = `Menu open: ${hasActive}\nOverlay active: ${overlayActive}\nBtn active: ${btnActive}\nMenuComponent: ${menuComponent ? 'found' : 'NOT FOUND'}\nTitleBar: ${titleBar ? 'found' : 'NOT FOUND'}`;
+        const pages = document.querySelectorAll('.page');
+        let activePageId = 'none';
+        pages.forEach(p => {
+          if (p.classList.contains('active')) activePageId = p.id;
+        });
+
+        debugDiv.textContent = `Menu: ${hasActive ? 'OPEN' : 'closed'}\nNavClicks: ${navClickCount}\nEvents: ${navigateEventCount}\nPage: ${activePageId}\nLinks found: ${menuComponent.querySelectorAll('a').length}`;
       }
     }, 100);
   }
