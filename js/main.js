@@ -16,3 +16,17 @@ if (menuComponent) {
     window.showPage(pageId);
   });
 }
+
+// Wire up title-bar and menu-component communication
+const titleBar = document.querySelector('title-bar-component');
+if (titleBar && menuComponent) {
+  // Title bar button triggers menu toggle
+  titleBar.addEventListener('toggle-menu', () => {
+    menuComponent.toggleSidebar();
+  });
+
+  // Menu state changes update title bar button
+  menuComponent.addEventListener('menu-toggled', (e) => {
+    titleBar.updateButtonState(e.detail.isOpen);
+  });
+}
