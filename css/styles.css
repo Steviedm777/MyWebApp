@@ -14,11 +14,12 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 100%;
   background: #f0f0f0;
   transition: margin-left 0.3s ease;
-  overflow: hidden;
+  overflow: auto;
+  margin-top: 70px;
 }
 
 /* Page Styles */

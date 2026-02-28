@@ -27,49 +27,6 @@ class MenuComponent extends HTMLElement {
           position: relative;
         }
 
-        .menu-toggle {
-          position: fixed;
-          top: 20px;
-          left: 20px;
-          background: var(--sidebar-bg);
-          border: none;
-          width: 50px;
-          height: 50px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 6px;
-          cursor: pointer;
-          border-radius: 5px;
-          z-index: 999;
-          transition: all 0.3s ease;
-        }
-
-        .menu-toggle:hover {
-          background: var(--sidebar-border);
-        }
-
-        .menu-toggle span {
-          width: 25px;
-          height: 3px;
-          background: var(--sidebar-text);
-          display: block;
-          border-radius: 2px;
-          transition: all 0.3s ease;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-          transform: rotate(45deg) translate(10px, 10px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-          opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-          transform: rotate(-45deg) translate(7px, -7px);
-        }
 
         .sidebar {
           position: fixed;
@@ -166,12 +123,6 @@ class MenuComponent extends HTMLElement {
         }
       </style>
 
-      <button class="menu-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
       <div class="sidebar">
         <div class="sidebar-header">
           <h2>Menu</h2>
@@ -187,17 +138,14 @@ class MenuComponent extends HTMLElement {
   }
 
   setupEventListeners() {
-    const menuToggle = this.shadowRoot.querySelector('.menu-toggle');
     const sidebar = this.shadowRoot.querySelector('.sidebar');
     const closeBtn = this.shadowRoot.querySelector('.close-btn');
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
     const navLinks = this.querySelectorAll('a');
 
-    // Toggle menu
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      menuToggle.classList.toggle('active');
-      overlay.classList.toggle('active');
+    // Listen for toggle-menu event from title-bar-component
+    document.addEventListener('toggle-menu', () => {
+      this.toggleSidebar();
     });
 
     // Close menu with close button
@@ -238,14 +186,36 @@ class MenuComponent extends HTMLElement {
     });
   }
 
+  toggleSidebar() {
+    const sidebar = this.shadowRoot.querySelector('.sidebar');
+    const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
+    const isOpen = sidebar.classList.contains('active');
+
+    if (isOpen) {
+      this.closeMenu();
+    } else {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      this.dispatchEvent(new CustomEvent('menu-toggled', {
+        detail: { isOpen: true },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  }
+
   closeMenu() {
     const sidebar = this.shadowRoot.querySelector('.sidebar');
-    const menuToggle = this.shadowRoot.querySelector('.menu-toggle');
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
 
     sidebar.classList.remove('active');
-    menuToggle.classList.remove('active');
     overlay.classList.remove('active');
+
+    this.dispatchEvent(new CustomEvent('menu-toggled', {
+      detail: { isOpen: false },
+      bubbles: true,
+      composed: true
+    }));
   }
 }
 
