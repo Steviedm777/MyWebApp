@@ -142,11 +142,6 @@ class MenuComponent extends HTMLElement {
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
     const navLinks = this.querySelectorAll('a');
 
-    // Listen for toggle-menu event from title-bar-component
-    window.addEventListener('toggle-menu', () => {
-      this.toggleSidebar();
-    });
-
     // Close menu with close button
     closeBtn.addEventListener('click', () => {
       this.closeMenu();
@@ -186,15 +181,19 @@ class MenuComponent extends HTMLElement {
   }
 
   toggleSidebar() {
+    console.log('toggleSidebar called');
     const sidebar = this.shadowRoot.querySelector('.sidebar');
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
+    console.log('sidebar:', sidebar, 'overlay:', overlay);
     const isOpen = sidebar.classList.contains('active');
+    console.log('isOpen:', isOpen);
 
     if (isOpen) {
       this.closeMenu();
     } else {
       sidebar.classList.add('active');
       overlay.classList.add('active');
+      console.log('Menu opened, dispatching event');
       this.dispatchEvent(new CustomEvent('menu-toggled', {
         detail: { isOpen: true },
         bubbles: true,
