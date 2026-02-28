@@ -144,7 +144,7 @@ class MenuComponent extends HTMLElement {
     const navLinks = this.querySelectorAll('a');
 
     // Listen for toggle-menu event from title-bar-component
-    document.addEventListener('toggle-menu', () => {
+    window.addEventListener('toggle-menu', () => {
       this.toggleSidebar();
     });
 
