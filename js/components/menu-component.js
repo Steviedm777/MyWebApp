@@ -2,17 +2,13 @@ class MenuComponent extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+    this.isListenersSetup = false;
   }
 
   connectedCallback() {
     this.render();
-    // Wait for slotted content to be ready before setting up listeners
-    const slot = this.shadowRoot.querySelector('slot');
-    if (slot) {
-      slot.addEventListener('slotchange', () => {
-        this.setupEventListeners();
-      }, { once: true });
-    }
+    // Setup listeners immediately
+    this.setupEventListeners();
   }
 
   render() {
@@ -138,6 +134,9 @@ class MenuComponent extends HTMLElement {
   }
 
   setupEventListeners() {
+    if (this.isListenersSetup) return;
+    this.isListenersSetup = true;
+
     const sidebar = this.shadowRoot.querySelector('.sidebar');
     const closeBtn = this.shadowRoot.querySelector('.close-btn');
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
