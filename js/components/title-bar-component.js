@@ -130,10 +130,10 @@ class TitleBarComponent extends HTMLElement {
     const button = this.shadowRoot.querySelector('.hamburger-btn');
 
     button.addEventListener('click', () => {
-      window.dispatchEvent(new CustomEvent('toggle-menu', {
-        bubbles: true,
-        composed: true
-      }));
+      const menuComponent = document.querySelector('menu-component');
+      if (menuComponent) {
+        menuComponent.toggleSidebar();
+      }
     });
 
     // Listen for menu state changes from menu-component

@@ -142,11 +142,6 @@ class MenuComponent extends HTMLElement {
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
     const navLinks = this.querySelectorAll('a');
 
-    // Listen for toggle-menu event from title-bar-component
-    window.addEventListener('toggle-menu', () => {
-      this.toggleSidebar();
-    });
-
     // Close menu with close button
     closeBtn.addEventListener('click', () => {
       this.closeMenu();
