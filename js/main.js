@@ -26,9 +26,20 @@ if (titleBar && menuComponent) {
   });
 }
 
-// DEBUG: Monitor button clicks and menu state
+// DEBUG: Capture console and monitor state
 let navClickCount = 0;
 let navigateEventCount = 0;
+let consoleLogs = [];
+
+// Override console.log to capture output
+const originalLog = console.log;
+console.log = function(...args) {
+  originalLog.apply(console, args);
+  const msg = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+  consoleLogs.push(msg);
+  if (consoleLogs.length > 20) consoleLogs.shift(); // Keep only last 20 logs
+};
+
 if (menuComponent && titleBar) {
   const debugDiv = document.getElementById('debug-info');
   if (debugDiv) {
@@ -66,7 +77,8 @@ if (menuComponent && titleBar) {
           if (p.classList.contains('active')) activePageId = p.id;
         });
 
-        debugDiv.textContent = `Menu: ${hasActive ? 'OPEN' : 'closed'}\nNavClicks: ${navClickCount}\nEvents: ${navigateEventCount}\nPage: ${activePageId}\nLinks found: ${menuComponent.querySelectorAll('a').length}`;
+        const logDisplay = consoleLogs.slice(-5).join('\n');
+        debugDiv.textContent = `Menu: ${hasActive ? 'OPEN' : 'closed'}\nPage: ${activePageId}\nLinks: ${menuComponent.querySelectorAll('a').length}\nClicks: ${navClickCount}\n\nLogs:\n${logDisplay}`;
       }
     }, 100);
   }

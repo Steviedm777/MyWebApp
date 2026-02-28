@@ -144,19 +144,27 @@ class MenuComponent extends HTMLElement {
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
     const navLinks = this.querySelectorAll('a');
 
+    console.log('setupEventListeners: Found', navLinks.length, 'nav links');
+    navLinks.forEach((link, idx) => {
+      console.log(`Link ${idx}:`, link.getAttribute('href'), link.textContent);
+    });
+
     // Close menu with close button
     closeBtn.addEventListener('click', () => {
+      console.log('Close button clicked');
       this.closeMenu();
     });
 
     // Close menu when clicking on overlay
     overlay.addEventListener('click', () => {
+      console.log('Overlay clicked');
       this.closeMenu();
     });
 
     // Close menu and dispatch event when clicking on a nav link
-    navLinks.forEach(link => {
+    navLinks.forEach((link, idx) => {
       link.addEventListener('click', (e) => {
+        console.log(`Nav link ${idx} clicked:`, link.getAttribute('href'));
         e.preventDefault();
 
         // Update active link
@@ -165,12 +173,14 @@ class MenuComponent extends HTMLElement {
 
         // Get the page ID from the link
         const pageId = link.getAttribute('href').substring(1);
+        console.log('Navigating to page:', pageId);
 
         // Dispatch custom event for navigation
         this.dispatchEvent(new CustomEvent('navigate', { detail: { pageId } }));
 
         // Also call showPage directly to ensure navigation happens
         if (typeof window.showPage === 'function') {
+          console.log('Calling window.showPage');
           window.showPage(pageId);
         }
 
