@@ -21,7 +21,7 @@ if (menuComponent) {
 const titleBar = document.querySelector('title-bar-component');
 if (titleBar && menuComponent) {
   // Title bar button triggers menu toggle
-  titleBar.addEventListener('toggle-menu', () => {
+  window.addEventListener('toggle-menu', () => {
     menuComponent.toggleSidebar();
   });
 
