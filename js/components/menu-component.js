@@ -7,8 +7,8 @@ class MenuComponent extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    // Setup listeners immediately
-    this.setupEventListeners();
+    // Defer setup until after DOM is ready and children are added
+    setTimeout(() => this.setupEventListeners(), 0);
   }
 
   render() {
@@ -144,27 +144,19 @@ class MenuComponent extends HTMLElement {
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
     const navLinks = this.querySelectorAll('a');
 
-    console.log('setupEventListeners: Found', navLinks.length, 'nav links');
-    navLinks.forEach((link, idx) => {
-      console.log(`Link ${idx}:`, link.getAttribute('href'), link.textContent);
-    });
-
     // Close menu with close button
     closeBtn.addEventListener('click', () => {
-      console.log('Close button clicked');
       this.closeMenu();
     });
 
     // Close menu when clicking on overlay
     overlay.addEventListener('click', () => {
-      console.log('Overlay clicked');
       this.closeMenu();
     });
 
     // Close menu and dispatch event when clicking on a nav link
-    navLinks.forEach((link, idx) => {
+    navLinks.forEach((link) => {
       link.addEventListener('click', (e) => {
-        console.log(`Nav link ${idx} clicked:`, link.getAttribute('href'));
         e.preventDefault();
 
         // Update active link
@@ -173,14 +165,12 @@ class MenuComponent extends HTMLElement {
 
         // Get the page ID from the link
         const pageId = link.getAttribute('href').substring(1);
-        console.log('Navigating to page:', pageId);
 
         // Dispatch custom event for navigation
         this.dispatchEvent(new CustomEvent('navigate', { detail: { pageId } }));
 
         // Also call showPage directly to ensure navigation happens
         if (typeof window.showPage === 'function') {
-          console.log('Calling window.showPage');
           window.showPage(pageId);
         }
 
@@ -191,19 +181,15 @@ class MenuComponent extends HTMLElement {
   }
 
   toggleSidebar() {
-    console.log('toggleSidebar called');
     const sidebar = this.shadowRoot.querySelector('.sidebar');
     const overlay = this.shadowRoot.querySelector('.sidebar-overlay');
-    console.log('sidebar:', sidebar, 'overlay:', overlay);
     const isOpen = sidebar.classList.contains('active');
-    console.log('isOpen:', isOpen);
 
     if (isOpen) {
       this.closeMenu();
     } else {
       sidebar.classList.add('active');
       overlay.classList.add('active');
-      console.log('Menu opened, dispatching event');
       this.dispatchEvent(new CustomEvent('menu-toggled', {
         detail: { isOpen: true },
         bubbles: true,
