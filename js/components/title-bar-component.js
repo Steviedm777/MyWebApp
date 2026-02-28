@@ -3,11 +3,17 @@ class TitleBarComponent extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.isMenuOpen = false;
+    this.menuComponent = null;
   }
 
   connectedCallback() {
     this.render();
     this.setupEventListeners();
+    // Try to find menu-component with a small delay to ensure it's in DOM
+    setTimeout(() => {
+      this.menuComponent = document.querySelector('menu-component');
+      console.log('Cached menu-component:', this.menuComponent);
+    }, 0);
   }
 
   render() {
@@ -130,13 +136,20 @@ class TitleBarComponent extends HTMLElement {
     const button = this.shadowRoot.querySelector('.hamburger-btn');
 
     button.addEventListener('click', () => {
-      const menuComponent = document.querySelector('menu-component');
-      if (menuComponent) {
+      console.log('Button clicked, menuComponent:', this.menuComponent);
+      if (this.menuComponent) {
         console.log('Found menu-component, calling toggleSidebar');
-        menuComponent.toggleSidebar();
+        this.menuComponent.toggleSidebar();
         console.log('toggleSidebar called');
       } else {
-        console.log('ERROR: menu-component not found!');
+        // Fallback to querying
+        const menuComponent = document.querySelector('menu-component');
+        console.log('Fallback query result:', menuComponent);
+        if (menuComponent) {
+          menuComponent.toggleSidebar();
+        } else {
+          console.log('ERROR: menu-component not found!');
+        }
       }
     });
 
