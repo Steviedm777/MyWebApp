@@ -130,7 +130,7 @@ class TitleBarComponent extends HTMLElement {
     const button = this.shadowRoot.querySelector('.hamburger-btn');
 
     button.addEventListener('click', () => {
-      this.dispatchEvent(new CustomEvent('toggle-menu', {
+      window.dispatchEvent(new CustomEvent('toggle-menu', {
         bubbles: true,
         composed: true
       }));
