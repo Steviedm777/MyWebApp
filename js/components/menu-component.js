@@ -184,10 +184,8 @@ class MenuComponent extends HTMLElement {
           window.showPage(pageId);
         }
 
-        // Close sidebar on mobile
-        if (window.innerWidth <= 768) {
-          this.closeMenu();
-        }
+        // Always close sidebar after navigation
+        this.closeMenu();
       });
     });
   }
