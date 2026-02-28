@@ -102,10 +102,12 @@ class MenuComponent extends HTMLElement {
           height: 100%;
           background: rgba(0, 0, 0, 0.5);
           z-index: 999;
+          pointer-events: none;
         }
 
         .sidebar-overlay.active {
           display: block;
+          pointer-events: auto;
         }
 
         @media (max-width: 768px) {
