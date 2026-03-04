@@ -57,6 +57,10 @@ class CounterComponent extends BasePage {
         cursor: pointer;
         transition: all 0.3s ease;
         font-weight: bold;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
       }
 
       .btn-add {
@@ -79,6 +83,20 @@ class CounterComponent extends BasePage {
         background: #c0392b;
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn:active {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.1s ease;
+      }
+
+      .btn-add:active {
+        background: #1e8449;
+      }
+
+      .btn-subtract:active {
+        background: #a93226;
       }
 
       @media (max-width: 768px) {
