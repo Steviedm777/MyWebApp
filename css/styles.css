@@ -24,12 +24,12 @@ body {
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px - env(safe-area-inset-top));
   width: 100%;
   background: #f0f0f0;
   transition: margin-left 0.3s ease;
   overflow: auto;
-  margin-top: 70px;
+  margin-top: calc(70px + env(safe-area-inset-top));
 }
 
 /* Page Styles */
