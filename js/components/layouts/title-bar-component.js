@@ -30,6 +30,7 @@ class TitleBarComponent extends HTMLElement {
           left: 0;
           right: 0;
           height: var(--title-bar-height);
+          padding-top: env(safe-area-inset-top);
           background-color: var(--title-bar-bg);
           color: var(--title-bar-text);
           display: flex;
