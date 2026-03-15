@@ -24,7 +24,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  min-height: calc(100vh - 70px - env(safe-area-inset-top));
+  min-height: calc(100svh - 70px - env(safe-area-inset-top));
   width: 100%;
   background: #f0f0f0;
   transition: margin-left 0.3s ease;
@@ -36,7 +36,7 @@ body {
 .page {
   display: none;
   width: 100%;
-  min-height: 100%;
+  min-height: 100svh;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
